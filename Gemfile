@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'faker'
+gem 'devise'
 
 # Front Gems
 gem 'bootstrap-sass'

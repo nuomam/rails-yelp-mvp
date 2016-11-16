@@ -1,0 +1,52 @@
+<% content_for(:title) do %>
+  <%= @restaurant.name %> is on Yelp MVP Rails
+<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+      <h1><%= @restaurant.name %></h1>
+      <p>Address: <%= @restaurant.address %></p>
+      <p>Phone Number: <%= @restaurant.phone_number %></p>
+      <p>Category: <%= @restaurant.category %></p>
+        <table class="table table-hover">
+          <thead>
+            <th>Rating</th>
+            <th>Comment</th>
+          </thead>
+          <tbody>
+            <% @reviews.each do |review| %>
+            <tr>
+              <td><span class="stars"><%= review.rating %></span></td>
+              <td><%= review.content %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <p>
+        <%= link_to "Add a review", new_restaurant_review_path(@restaurant), class: "btn btn-info" %>
+      </p>
+      <p>
+        <%= link_to "Restaurants list", restaurants_path, class: "btn btn-default" %>
+      </p>
+    </div>
+  </div>
+</div>
+<% content_for(:js) do %>
+  <script>
+  $.fn.stars = function() {
+      return $(this).each(function() {
+          // Get the value
+          var val = parseFloat($(this).html());
+          // Make sure that the value is in 0 - 5 range, multiply to get width
+          var size = Math.max(0, (Math.min(5, val))) * 16;
+          // Create stars holder
+          var $span = $('<span />').width(size);
+          // Replace the numerical value with stars
+          $(this).html($span);
+      });
+  }
+  $(function() {
+      $('span.stars').stars();
+  });
+  </script>
+<% end %>
